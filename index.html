@@ -138,8 +138,20 @@
 			<script>
 
 			document.getElementById("year").innerHTML = new Date().getFullYear();
-			document.getElementById("age").innerHTML = new Date().getFullYear() - 2001;
+			document.getElementById("age").innerHTML = calculateAge('2001-11-20');
 			document.getElementById("agoTime").innerHTML = new Date().getFullYear() - 2015;
+
+			function calculateAge(birthDate) {
+                 var today = new Date();
+                 var birth = new Date(birthDate);
+                 var age = today.getFullYear() - birth.getFullYear();
+                 var m = today.getMonth() - birth.getMonth();
+             
+                 if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+                     age--;
+                 }
+                 return age;
+             }
 			</script>
 
 		<!-- Scripts -->
