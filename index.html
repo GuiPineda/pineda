@@ -36,7 +36,6 @@
                      	} 
                      }
 
-					 document.getElementById('contact-form').reset();
 
                       var formElements = document.getElementById('contact-form').elements;
                       var submitButton = null;
@@ -56,9 +55,8 @@
         			emailjs.sendForm('service_pineda', 'template_pineda', this)
         				.then(function() {
         					console.log('SUCCESS!');
-					
 							submitButton.value = 'Message sent';
-
+					 		document.getElementById('contact-form').reset();
 
 					var successAlert = document.getElementById('successAlert');
             successAlert.style.display = 'block';
@@ -91,6 +89,7 @@
             }, 3000);
 
         				}, function(error) {
+							document.getElementById('contact-form').reset();
         					console.log('FAILED...', error);
         				});
         		});
