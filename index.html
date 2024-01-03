@@ -43,14 +43,17 @@
                       for (var i = 0; i < formElements.length; i++) {
                       if (formElements[i].type === 'submit') {
                       submitButton = formElements[i];
+					  submitButton.disabled = true;
                       }
-                      
-                      formElements[i].disabled = true;
+                      formElements[i].readOnly  = true;
                       }
                       submitButton.value = 'Sending...';
 
         			// generate a five digit number for the contact_number variable
         			this.contact_number.value = Math.random() * 100000 | 0;
+
+					console.log(this);
+					//return;
         			// these IDs from the previous steps
         			emailjs.sendForm('service_pineda', 'template_pineda', this)
         				.then(function() {
