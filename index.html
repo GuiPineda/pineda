@@ -27,12 +27,69 @@
         	window.onload = function() {
         		document.getElementById('contact-form').addEventListener('submit', function(event) {
         			event.preventDefault();
+					var formElements = document.getElementById('contact-form').elements;
+
+                     // Verifica se todos os campos estão preenchidos
+                     for (var i = 1; i < formElements.length; i++) {
+                     	if (formElements[i].type !== 'submit' && formElements[i].value.trim() === '') {
+                     		return;
+                     	} 
+                     }
+
+					 document.getElementById('contact-form').reset();
+
+                      var formElements = document.getElementById('contact-form').elements;
+                      var submitButton = null;
+                      
+                      for (var i = 0; i < formElements.length; i++) {
+                      if (formElements[i].type === 'submit') {
+                      submitButton = formElements[i];
+                      }
+                      
+                      formElements[i].disabled = true;
+                      }
+                      submitButton.value = 'Sending...';
+
         			// generate a five digit number for the contact_number variable
         			this.contact_number.value = Math.random() * 100000 | 0;
         			// these IDs from the previous steps
         			emailjs.sendForm('service_pineda', 'template_pineda', this)
         				.then(function() {
         					console.log('SUCCESS!');
+					
+							submitButton.value = 'Message sent';
+
+
+					var successAlert = document.getElementById('successAlert');
+            successAlert.style.display = 'block';
+            successAlert.style.opacity = 0;
+            
+            // Animação para fazer o alerta aparecer suavemente
+            var opacity = 0;
+            var intervalID = setInterval(function() {
+                if (opacity < 1) {
+                    opacity = opacity + 0.1
+                    successAlert.style.opacity = opacity;
+                } else {
+                    clearInterval(intervalID);
+                }
+            }, 100);
+
+            // Ocultar o alerta de sucesso após 5 segundos
+            setTimeout(function() {
+				var opacity2 = 1;
+            var intervalID = setInterval(function() {
+                if (opacity2 > 0) {
+                    opacity2 = opacity2 - 0.1
+                    successAlert.style.opacity = opacity2;
+                } else {
+					successAlert.style.display = 'none';
+                    clearInterval(intervalID);
+                }
+            }, 50);
+
+            }, 3000);
+
         				}, function(error) {
         					console.log('FAILED...', error);
         				});
@@ -89,7 +146,6 @@
 							</div>
 						</nav>
 
-
 				<!-- Banner -->
 					<section id="banner">
 						<div class="inner">
@@ -98,6 +154,13 @@
 							<p>.NET Full Stack Developer</p>
 						</div>
 					</section>
+
+					<div id="successAlert" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; width: 100px; height: 100px; line-height: 100px; background-color: green; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); text-align: center;">
+						<div style="font-size: 48px; color: white;">
+							&#10004; <!-- Este é o código HTML para o símbolo de check -->
+						</div>
+					</div>
+					
 
 				<!-- Wrapper -->
 					<section id="wrapper">
@@ -227,6 +290,9 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+ 			 integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  				crossorigin="anonymous"></script>
 
 	</body>
 </html>
