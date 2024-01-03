@@ -16,6 +16,30 @@
           gtag('config', 'G-3NP220XXHJ');
         </script>
 
+           <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+           <script type="text/javascript">
+           	(function() {
+           		emailjs.init('qZ-gCHnZ6z_YfD4ub');
+           	})();
+           </script>
+
+        <script type="text/javascript">
+        	window.onload = function() {
+        		document.getElementById('contact-form').addEventListener('submit', function(event) {
+        			event.preventDefault();
+        			// generate a five digit number for the contact_number variable
+        			this.contact_number.value = Math.random() * 100000 | 0;
+        			// these IDs from the previous steps
+        			emailjs.sendForm('service_pineda', 'template_pineda', this)
+        				.then(function() {
+        					console.log('SUCCESS!');
+        				}, function(error) {
+        					console.log('FAILED...', error);
+        				});
+        		});
+        	}
+        </script>
+
 		<title>Guilherme Pineda</title>
 		<link rel="icon" type="image/x-icon" href="images/favicon.ico">
 		<meta charset="utf-8" />
@@ -146,6 +170,29 @@
 								<li class="icon brands fa-linkedin"><a href="https://www.linkedin.com/in/guilherme-pineda/">LinkedIn</a></li>
 								<li class="icon brands fa-instagram"><a href="https://instagram.com/gui_pineda">Instagram</a></li>
 							</ul>
+
+							<form method="post" id="contact-form" action="#">
+								<input type="hidden" name="contact_number">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="user_name" id="user_name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="email" name="user_email" id="user_email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="4"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+
+
 							<ul class="copyright">
 								<li>Todos os direitos reservados - &copy; <span id="year"></span> - Pineda</li>
 							</ul>
